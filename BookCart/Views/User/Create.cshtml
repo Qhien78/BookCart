@@ -51,9 +51,9 @@
                         <div class="form-group">
                             <label asp-for="Role">Role</label>
                             <select class="custom-select form-control-border" id="Role" name="RoleId">
-                                @foreach(var item in ViewBag.Roles){
-                                    <option value="@item.Id">@item.Name</option>
-                                }
+                                id="role"
+                                asp-for="RoleId"
+                                asp-items="ViewBag.Roles"
                             </select>
                         </div>
                         </div>
