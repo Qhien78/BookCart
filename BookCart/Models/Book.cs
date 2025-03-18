@@ -18,6 +18,7 @@ namespace BookCart.Models
         public decimal PriceDiscount{ get; set;}
 
         public string? Image {  get; set; }
+        public bool? Features { get; set; }
     
     }
 }

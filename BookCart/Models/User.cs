@@ -20,5 +20,7 @@ namespace BookCart.Models
         public Role? Role { get; set; }
 
         public List<User>? Users { get; set; }
+        public List<Cart>? Cart { get; set; }
+
     }
 }
