@@ -11,9 +11,7 @@ namespace BookCart.Models
         public int Id { get; set; }
         [Column(TypeName = "nvarchar(255)")]
         public string? Name { get; set; }
-        public List<User>? Users
-        {
-            get; set;
-        }
+        
+        public List<User>? Users { get; set; }
     }
 }

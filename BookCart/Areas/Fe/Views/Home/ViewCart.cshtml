@@ -1,0 +1,212 @@
+﻿@model List<BookCart.Dto.CartDto>
+@{
+    ViewData["Title"] = "ViewCart";
+}
+<!--breadcrumbs area start-->
+<div class="breadcrumbs_area breadcrumbs_other">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcrumb_content text-center">
+                    <ul>
+                        <li><a href="/fe">home</a></li>
+                        <li><a href="#">Shopping Cart</a></li>
+                    </ul>
+                    <h3>Shopping Cart</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--breadcrumbs area end-->
+<!--shopping cart area start -->
+<div class="shopping_cart_area">
+    <div class="container">
+        <form action="#">
+            <div class="cart_page_inner mb-60">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="cart_page_tabel">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Book </th>
+                                        <th>information</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        decimal total = 0;
+                                    }
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr class="border-top">
+                                            <td>
+                                                <div class="cart_product_thumb">
+                                                    <img src="~/images/@item.Item!.Image" alt="@item.Item.Title">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart_product_text">
+                                                    <h4>@item.Item.Title</h4>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart_product_price">
+                                                    @if (item.Item.PriceDiscount != null && item.Item.PriceDiscount > 0)
+                                                    {
+                                                        <span>@item.Item.PriceDiscount đ</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@item.Item.Price đ</span>
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td class="product_quantity">
+                                                <div class="cart_product_quantity">
+                                                    <input 
+                                                        min="1" 
+                                                        max="100" 
+                                                        asp-for="@item.Quantity" 
+                                                        type="number"
+                                                        id="@($"quantity-{item.Item.Id}")"
+                                                        name="quantity-@item.Item.Id">
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart_product_price">
+                                                    @if (item.Item.PriceDiscount != null && item.Item.PriceDiscount > 0)
+                                                    {
+                                                        <span>@(item.Item.PriceDiscount * item.Quantity) đ</span>
+                                                        total += item.Item.PriceDiscount.Value * item.Quantity; 
+                                                    }
+                                                    else
+                                                    {
+                                                        <span>@(item.Item.Price * item.Quantity) đ</span>
+                                                        total += item.Item.Price!.Value * item.Quantity;
+                                                    }
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="cart_product_remove text-right">
+                                                    <a href="/fe/home/removecart/@item.Item.Id"><i class="ion-android-close"></i></a>
+                                                </div>
+                                            </td>
+
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="cart_page_button border-top d-flex justify-content-between">
+                            <div class="shopping_cart_btn">
+                                <a href="/fe/home/checkout" class="btn btn-primary border">CLEAR SHOPPING CART</a>
+                                <button 
+                                    class="btn btn-primary border" 
+                                    type="button"
+                                    id="update-cart"
+                                >
+                                    UPDATE YOUR CART
+                                </button>
+                            </div>
+                            <div class="shopping_continue_btn">
+                                <a class="btn btn-primary" href="/fe">CONTINUE SHOPPING</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--coupon code area start-->
+            <div class="cart_page_bottom">
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="shopping_coupon_calculate top">
+                            <h3 class="border-bottom">Calculate Shipping </h3>
+                            <select class="select_option border">
+                                <option value="1">United Kingdom (UK)  </option>
+                                <option value="2">Åland Islands  </option>
+                                <option value="3">Afghanistan  </option>
+                                <option value="4">Belgium </option>
+                                <option value="5">Albania  </option>
+                            </select>
+                            <input class="border" placeholder="State / Country" type="text">
+                            <input class="border" placeholder="Postcode / Zip" type="text">
+                            <button class="btn btn-primary" type="submit">get a quote</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-6">
+                        <div class="shopping_coupon_calculate">
+                            <h3 class="border-bottom">Coupon Discount   </h3>
+                            <p>Enter your coupon code if you have one.</p>
+                            <input class="border" placeholder="Enter your code" type="text">
+                            <button class="btn btn-primary" type="submit">apply coupon</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-sm-8">
+                        <div class="grand_totall_area">
+                            <div class="grand_totall_inner border-bottom">
+                                <div class="cart_subtotal d-flex justify-content-between">
+                                    <p>sub total </p>
+                                    <span>$126.00</span>
+                                </div>
+                                <div class="cart_grandtotal d-flex justify-content-between">
+                                    <p>grand total</p>
+                                    <span>@total đ</span>
+                                </div>
+                            </div>
+                            <div class="proceed_checkout_btn">
+                                <a class="btn btn-primary" asp-action="Checkout">Proceed to Checkout</a>
+                            </div>
+                            <a href="#">Checkout with Mutilple Adresses</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--coupon code area end-->
+        </form>
+    </div>
+</div>
+<!--shopping cart area end -->
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#update-cart").click(function (event) {
+                event.preventDefault();
+
+                var cartItems = [];
+
+                // Lặp qua tất cả các input có id bắt đầu bằng 'quantity-'
+                $("input[id^='quantity-']").each(function() {
+                    var bookId = $(this).attr('id').split('-')[1];  // Lấy productId từ id
+                    var quantity = $(this).val();  // Lấy quantity từ giá trị của input
+
+                    if (quantity > 0) {
+                        cartItems.push({ id: bookId, quantity: quantity });
+                    }
+                });
+
+                // Xử lý cartItems (có thể gửi qua AJAX hoặc qua Form submit)
+                console.log(cartItems);
+
+                // Nếu bạn muốn gửi thông tin qua AJAX:
+                $.ajax({
+                    //url: "@Url.RouteUrl("updatecart")",  // URL của action bạn muốn gửi dữ liệu tới
+                    url: "/fe/home/updatecart",
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(cartItems),  // Gửi danh sách cartItems
+                    success: function(response) {
+                        window.location.href = "@Url.RouteUrl("ViewCart")";
+                    },
+                    error: function() {
+                        alert('Đã xảy ra lỗi khi thêm vào giỏ hàng.');
+                    }
+                });
+            });
+        });
+    </script>
+}

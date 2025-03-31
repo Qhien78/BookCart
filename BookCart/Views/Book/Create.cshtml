@@ -2,18 +2,17 @@
 @{
     ViewData["Title"] = "Create";
 }
-
 <section class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1>General Form</h1>
+                <h1>Create User</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="~/Home">Home</a></li>
-                    <li class="breadcrumb-item"><a href="~/User">User List</a></li>
-                    <li class="breadcrumb-item active">Create User</li>
+                    <li class="breadcrumb-item"><a href="~/Book">Book List</a></li>
+                    <li class="breadcrumb-item active">Create Book</li>
                 </ol>
             </div>
         </div>
@@ -31,46 +30,46 @@
                     </div>
                     <!-- /.card-header -->
                     <!-- form start -->
-                    <form asp-action ="Create">
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label asp-for="Title"></label>
-                            <input asp-for="Title" class="form-control" placeholder="Title">
-                            <span sap-validation-for="Title"/>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Description"></label>
+                    <form asp-action="Create">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label asp-for="Title"></label>
+                                <input asp-for="Title" class="form-control" placeholder="Title"/>
+                                <span asp-validation-for="Title" class="text-alert"/>
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Description"></label>
                                 <textarea class="form-control" asp-for="Description"></textarea>
-                                <span sap-validation-for="Description" />
-
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Price"></label>
-                                <input class="form-control" asp-for="Price" placeholder="0" />
-                                <span sap-validation-for="Price" />
-
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="PriceDiscount"></label>
+                                <span asp-validation-for="Description" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="Price"></label>
+                                <input class="form-control" asp-for="Price" placeholder="0"/>
+                                <span asp-validation-for="Price" />
+                            </div>
+                            <div class="form-group">
+                                <label asp-for="PriceDiscount"></label>
                                 <input class="form-control" asp-for="PriceDiscount" placeholder="0">
-                                <span sap-validation-for="PriceDiscount" />
-                        </div>
+                                <span asp-validation-for="PriceDiscount" />
+                            </div>
                             <div class="form-group">
                                 <label asp-for="Image"></label>
-                                <input class="form-control" asp-for="Image">
-                                <spam asp-validation-for="Image"></spam>
-
+                                <input class="form-control" asp-for="Image"/>
+                                <span asp-validation-for="Image" />
                             </div>
-                    </div>
-                    </form>
-                    <!-- /.card-body -->
+                        </div>
+                        <!-- /.card-body -->
 
-                    <div class="card-footer">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
+                        <div class="card-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+                    </form>
                 </div>
                 <!-- /.card -->
             </div>
         </div>
     </div>
 </section>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

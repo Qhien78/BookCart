@@ -9,7 +9,7 @@ namespace BookCart.Models
         [Key]
         [Column("Id")]
         public int Id { get; set; }
-        [Column(TypeName = "nvarchar(255)")]
+        [Column(TypeName = "nvarchar(100)")]
         public string? Email { get; set; }
         public string? Password { get; set; }
         public string? Fullname { get; set; }
@@ -19,8 +19,6 @@ namespace BookCart.Models
         [ForeignKey("RoleId")]
         public Role? Role { get; set; }
 
-        public List<User>? Users { get; set; }
-        public List<Cart>? Cart { get; set; }
-
+        public List<Cart>? Carts { set; get; }
     }
 }

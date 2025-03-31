@@ -1,0 +1,69 @@
+﻿@using BookCart.Dto
+@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@inject IHttpContextAccessor HttpContextAccessor
+
+@{
+    var session = HttpContextAccessor.HttpContext!.Session;
+    string? jsoncart = session.GetString(BookCart.Areas.fe.Controllers.HomeController.CARTKEY);
+    List<CartDto>? cart = null;
+    if (jsoncart != null)
+    {
+        cart = JsonConvert.DeserializeObject<List<CartDto>>(jsoncart);
+    }
+    decimal total = 0;
+}
+<!--mini cart-->
+<div class="mini_cart">
+    <div class="cart_gallery">
+        <div class="cart_close">
+            <div class="cart_text">
+                <h3>cart</h3>
+            </div>
+            <div class="mini_cart_close">
+                <a href="javascript:void(0)"><i class="icon-close icons"></i></a>
+            </div>
+        </div>
+        @if (cart != null)
+        {
+            foreach (var item in cart)
+            {
+                total = item.Quantity * item.Item!.Price!.Value;
+
+                <div class="cart_item">
+                    <div class="cart_img">
+                        <a href="/fe/home/bookdetails/@item.Item!.Id"><img src="/images/@item.Item.Image" alt="@item.Item.Title"></a>
+                    </div>
+                    <div class="cart_info">
+                        <a href="#">Primis In Faucibus</a>
+                        <p>@item.Quantity x <span> @item.Item.Price đ </span></p>
+                    </div>
+                    <div class="cart_remove">
+                        <a href="/fe/home/removecart/@item.Item.Id"><i class="icon-close icons"></i></a>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+    <div class="mini_cart_table">
+        <div class="cart_table_border">
+            @* <div class="cart_total"> *@
+            @*     <span>Sub total:</span> *@
+            @*     <span class="price">$125.00</span> *@
+            @* </div> *@
+            <div class="cart_total mt-10">
+                <span>total:</span>
+                <span class="price">@total đ</span>
+            </div>
+        </div>
+    </div>
+    <div class="mini_cart_footer">
+        <div class="cart_button">
+            <a href="/fe/home/viewcart"><i class="fa fa-shopping-cart"></i> View cart</a>
+        </div>
+        <div class="cart_button">
+            <a href="/fe/home/checkout"><i class="fa fa-sign-in"></i> Checkout</a>
+        </div>
+    </div>
+</div>
+<!--mini cart end-->
